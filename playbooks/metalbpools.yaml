@@ -1,0 +1,17 @@
+---
+- name: Gimme ippols
+  hosts: localhost
+
+  tasks:
+    - name: Gimme ippols
+      community.kubernetes.k8s:
+        api_version: metallb.io/v1beta1
+        kind: IPAddressPool
+        name: 99network
+        namespace: metallb-system
+        state: present
+      register: ippools
+
+    - name: Print FRRConfiguration data
+      debug:
+        var: ippools

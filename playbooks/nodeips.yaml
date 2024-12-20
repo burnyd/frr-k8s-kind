@@ -11,7 +11,8 @@
 
     - name: Extract Node ID and Internal IP and AS 
       debug:
-        msg: "Node: {{ item.metadata.name }}, Internal IP: {{ item.status.addresses | selectattr('type', 'equalto', 'InternalIP') | map(attribute='address') | first }}, , AS: {{ item.metadata.labels.as }}"
+        msg: "Node: {{ item.metadata.name }}, Internal IP: {{ item.status.addresses | selectattr('type', 'equalto', 'InternalIP') | map(attribute='address') | first }}"
+        #msg: "Node: {{ item.metadata.name }}, Internal IP: {{ item.status.addresses | selectattr('type', 'equalto', 'InternalIP') | map(attribute='address') | first }}, , AS: {{ item.metadata.labels.as }}"
       loop: "{{ k8s_nodes.resources }}"
       when: k8s_nodes.resources | length > 0
 
