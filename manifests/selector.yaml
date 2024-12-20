@@ -1,0 +1,22 @@
+---
+apiVersion: frrk8s.metallb.io/v1beta1
+kind: FRRConfiguration
+metadata:
+  name: tor2bgp
+  namespace: frr-k8s-system
+spec:
+  bgp:
+    routers:
+    - asn: 6500
+      neighbors:
+      - address: 1.2.3.4
+        asn: 6501
+        toAdvertise:
+          allowed:
+            mode: all
+        toReceive:
+          allowed:
+            mode: all
+  nodeSelector:
+    matchLabels:
+      tor: "tor2"

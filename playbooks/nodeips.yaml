@@ -1,0 +1,22 @@
+---
+- name: Get local IPs
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Gather Kubernetes node facts
+      kubernetes.core.k8s_info:
+        kubeconfig: "~/.kube/config"
+        kind: "Node"
+      register: k8s_nodes
+
+    - name: Extract Node ID and Internal IP and AS 
+      debug:
+        msg: "Node: {{ item.metadata.name }}, Internal IP: {{ item.status.addresses | selectattr('type', 'equalto', 'InternalIP') | map(attribute='address') | first }}, , AS: {{ item.metadata.labels.as }}"
+      loop: "{{ k8s_nodes.resources }}"
+      when: k8s_nodes.resources | length > 0
+
+    
+
+    
+
+    

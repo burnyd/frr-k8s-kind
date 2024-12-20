@@ -1,0 +1,17 @@
+---
+- name: Gimme frr config for frrconfig
+  hosts: localhost
+
+  tasks:
+    - name: Gimme frr config 
+      community.kubernetes.k8s:
+        api_version: frrk8s.metallb.io/v1beta1
+        kind: FRRConfiguration
+        name: tor2bgp
+        namespace: frr-k8s-system
+        state: present
+      register: frr_config
+
+    - name: Print FRRConfiguration data
+      debug:
+        var: frr_config
