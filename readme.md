@@ -18,6 +18,9 @@ kubectl apply -f frr-k8s.yaml
 
 kubectl apply -f selector.yaml
 
+### Apply metallb information
+kubectl apply -f metallb-native.yaml
+kubectl apply -f metallbpool.yaml
 ### Run the ansible-playbook to extract the information
 
 ansible-playbook playbooks/frr-k8s.yaml
